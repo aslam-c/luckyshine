@@ -1,5 +1,4 @@
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from "typeorm";
-import { Geometry } from "geojson";
 import { MoneyValue } from "./MoneyValue";
 
 @Entity("treasures")

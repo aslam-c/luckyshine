@@ -1,23 +1,46 @@
 import * as express from "express";
 import { Request, Response } from "express";
+import { body, validationResult } from "express-validator";
+
+import { createConnection } from "typeorm";
+import { Treasure } from "./entity/Treasure";
+import { getTreasures } from "./models/Treasure";
 // create and setup express app
 const app = express();
 app.use(express.json());
-// register routes
-app.get("/users", function (req: Request, res: Response) {
-  // here we will have logic to return all users
-});
-app.get("/users/:id", function (req: Request, res: Response) {
-  // here we will have logic to return user by id
-});
-app.post("/users", function (req: Request, res: Response) {
-  // here we will have logic to save a user
-});
-app.put("/users/:id", function (req: Request, res: Response) {
-  // here we will have logic to update a user by a given user id
-});
-app.delete("/users/:id", function (req: Request, res: Response) {
-  // here we will have logic to delete a user by a given user id
-});
+
+createConnection().then((connection) => {
+  const TreasureRepo = connection.getRepository(Treasure);
+}); //connect typeorm
+
+app.post(
+  "/nearby_treasures",
+  body("latitude").notEmpty().withMessage("Latitude is required"),
+  body("longitude").notEmpty().withMessage("Longitude is required"),
+  body("distance")
+    .notEmpty()
+    .withMessage("Distance is required")
+    .isIn([1, 10])
+    .withMessage("Distange must be 1 or 10 "),
+  async (req: express.Request, res: express.Response) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(422).json({ errors: errors.array() });
+    } else {
+      const treasures = await getTreasures(
+        {
+          longitude: req.body.longitude,
+          latitude: req.body.Latitude,
+        },
+        req.body.distance
+      );
+
+      res.status(200).json(treasures);
+    }
+  }
+);
+
 // start express server
-app.listen(3000);
+app.listen(3000, () => {
+  console.log("listening on port 3000");
+});

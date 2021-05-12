@@ -1,4 +1,4 @@
-export const TreasureSeed = [
+export const TreasureSeeds = [
   { id: 100, longitude: "103.89804864", latitude: "1.33125924", name: "T1" },
   { id: 101, longitude: "103.89430855", latitude: "1.32255754", name: "T2" },
   { id: 102, longitude: "103.88912254", latitude: "1.3166356", name: "T3" },
