@@ -1,10 +1,11 @@
 {
   "name": "luckyshine",
   "version": "1.0.0",
-  "description": "luckyshare api",
+  "description": "luckyshine api",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "ts-node src/index.ts"
   },
   "repository": {
     "type": "git",
@@ -17,13 +18,17 @@
   },
   "homepage": "https://github.com/aslam-c/luckyshine#readme",
   "devDependencies": {
-    "typescript": "^4.2.4"
+    "typescript": "3.3.3333",
+    "ts-node": "3.3.0",
+    "@types/node": "^8.0.29"
   },
   "dependencies": {
     "@types/express": "^4.17.11",
+    "@types/geojson": "^7946.0.7",
     "express": "^4.17.1",
+    "mysql": "^2.14.1",
     "pg": "^8.6.0",
-    "reflect-metadata": "^0.1.13",
-    "typeorm": "^0.2.32"
+    "reflect-metadata": "^0.1.10",
+    "typeorm": "0.2.32"
   }
 }
